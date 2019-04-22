@@ -1,8 +1,8 @@
 {
   "name": "react-native-select-picker",
   "version": "1.0.0",
-  "description": "Select picker that renders the same on iOS and Android",
-  "main": "index.js",
+  "description": "Customized select picker (just like <select> in html) that renders the same on iOS and Android",
+  "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -13,6 +13,16 @@
     "select",
     "picker"
   ],
-  "author": "Olayinka Okewale",
-  "license": "MIT"
+  "author": "Olayinka Okewale <okjool2012@gmail.com>",
+  "license": "MIT",
+  "files": [
+    "LICENSE",
+    "README.md",
+    "index.d.ts",
+    "src/index.js"
+  ],
+  "devDependencies": {
+    "react": "^16.8.3",
+    "react-native": "^0.59.5"
+  }
 }
