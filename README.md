@@ -6,7 +6,7 @@ and I wanted somthing that works and renders the same on both iOS and Android.
 
 ## Installation
 To install this package you will have to run the command below using npm
-> npm install --save git+https://github.com/olayinkaokewale/react-native-select-picker.git
+> `npm install --save git+https://github.com/olayinkaokewale/react-native-select-picker.git`
 
 We dont have an npm link yet. We will update that as soon as we get one.
 
