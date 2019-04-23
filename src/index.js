@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
-import { View, Modal, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import { View, Modal, TouchableOpacity, StyleSheet, Image, Text } from 'react-native';
+import PickerItem from './components/pickeritem';
 
 export default class SelectPicker extends PureComponent {
 
@@ -10,13 +11,33 @@ export default class SelectPicker extends PureComponent {
 		this.state = {
 			visible: false,
 			selected: this.props.selected | "",
+			selectedKey: null,
+			selectedLabel: null,
+			dismissable: this.props.dismissable | false,
+			disabled: this.props.disabled | false,
+			placeholder: this.props.placeholder | "",
 		};
 	}
 
 	componentWillReceiveProps = newProps => {
-		if (newProps.selected != this.props.selected) {
+		if (newProps.selected != this.state.selected) {
 			this.setState({
 				selected: newProps.selected
+			})
+		}
+		if (newProps.dismissable != this.state.dismissable) {
+			this.setState({
+				dismissable: newProps.dismissable
+			})
+		}
+		if (newProps.disabled != this.state.disabled) {
+			this.setState({
+				disabled: newProps.disabled
+			})
+		}
+		if (newProps.placeholder != this.state.placeholder) {
+			this.setState({
+				placeholder: newProps.placeholder
 			})
 		}
 	}
@@ -24,26 +45,44 @@ export default class SelectPicker extends PureComponent {
 	onValueChange = () => {
 		this.setModalVisibility(false);
 		if (typeof this.props.onValueChange == 'function') {
-			return this.props.onValueChange(this.state.selected);
+			return this.props.onValueChange(this.state.selected, this.state.selectedKey);
 		} else {
 			console.log("onValueChange props must be a function. Function not passed");
 		}
 	}
 
 	setModalVisibility = bool => {
-		this.setState({
-			visible: bool
-		})
+		if (!this.state.disabled || !bool) {
+			this.setState({
+				visible: bool
+			})
+		}
+	}
+
+	handleDismiss = () => {
+		if (this.state.dismissable) {
+			this.setModalVisibility(false);
+		}
+	}
+
+	getSelectTitle = () => {
+		if (this.state.selectedLabel != null) {
+			return (<Text numberOfLines={1} style={[styles.selectedTitleStyle, this.props.onSelectedStyle]}>{this.state.selectedLabel}</Text>);
+		}
+		
+		return (<Text numberOfLines={1} style={[styles.placeholderTitleStyle, this.props.placeholderStyle]}>{this.props.placeholder}</Text>);
 	}
 
 	render() {
 		const children = this.props.children;
 		return (
-			<TouchableOpacity activeOpacity={0.9} style={[styles.inputStyle, styles.centerContent, this.props.style]} onPress={() => { this.setModalVisibility(true) }}>
+			<TouchableOpacity activeOpacity={0.9} style={[styles.inputStyle, this.props.style]} onPress={() => { this.setModalVisibility(true) }}>
+				{/* Get title of the select element */}
+				{this.getSelectTitle()}
 				
 				{/* Modal to display on touch */}
-				<Modal visible={this.state.visible}>
-					<TouchableOpacity style={styles.upperView} />
+				<Modal visible={this.state.visible} onRequestClose={() => this.handleDismiss()} transparent>
+					<TouchableOpacity activeOpacity={1} onPress={() => this.handleDismiss()} style={styles.upperView} />
 					<View style={[styles.lowerView, this.props.containerStyle]}>
 						
 						{/* Header */}
@@ -52,58 +91,47 @@ export default class SelectPicker extends PureComponent {
 							
 							</View>
 							<TouchableOpacity onPress={() => this.onValueChange()} activeOpacity={0.9} style={{padding:5}}>
-								<Text style={[this.props.selectButtonTextStyle, styles.detaultButtonTextStyle]}>{this.props.selectButton || 'Done'}</Text>
+								<Text style={[styles.detaultButtonTextStyle, this.props.doneButtonTextStyle]}>{this.props.doneButtonText || 'Done'}</Text>
 							</TouchableOpacity>
 						</View>
 						
 						{/* Body */}
-						<View style={styles.pickerBody}>
-							{React.Children.map(children, (child, index) => {
-								let selected = (child.props.value == this.state.selected);
-								let key = (child.props.key) ? child.props.key : index;
-								let newChild = React.cloneElement(child, {
-									selected: selected,
-									pickSelected: (value) => {
-										this.setState({
-											selected: value
-										});
-									},
-									key: key
-								})
-								return [
-									index > 0 && (<View key={index} style={styles.separator} />),
-									newChild
-								]
-							})}
-						</View>
+						<ScrollView>
+							<View style={styles.pickerBody}>
+								{React.Children.map(children, (child, index) => {
+									let selected = (child.props.value == this.state.selected);
+									/* let key = (child.props.key != null) ? child.props.key : index; */
+									let newChild = React.cloneElement(child, {
+										selected: selected,
+										/* key: index, */
+										pickSelected: (value, index, label) => {
+											this.setState({
+												selected: value,
+												selectedKey: index,
+												selectedLabel: label,
+											});
+										}
+									})
+									return [
+										index > 0 && (<View key={index} style={styles.separator} />),
+										newChild
+									]
+								})}
+							</View>
+						</ScrollView>
 					</View>
 				</Modal>
 			</TouchableOpacity>
 		);
 	}
 
-	static Item = Item;
+	static Item = PickerItem;
 
-}
-
-class Item extends PureComponent {
-
-	render() {
-		let icon = (this.props.selected) ? require('./assets/icons/selected.png') : require('./assets/icons/unselected.png');
-		return (
-			<TouchableOpacity key={this.props.key} activeOpacity={0.8} onPress={() => this.props.pickSelected(this.props.value)}>
-				<View style={[{flexDirection:'row'}, styles.centerContent]}>
-					<Image source={icon} style={styles.imageStyle} />
-					<Text style={styles.itemTextStyle}>{this.props.label}</Text>
-				</View>
-			</TouchableOpacity>
-		)
-	}
 }
 
 const styles = StyleSheet.create({
 	transparent: {
-		backgroundColor:'#0000',
+		backgroundColor:'#00000000',
 	},
 	upperView: {
 		height:'60%',
@@ -115,7 +143,7 @@ const styles = StyleSheet.create({
 	},
 	pickerHeader: {
 		padding:10,
-		borderBottomColor:'#BDBDBD',
+		borderBottomColor:'#EFEFEF',
 		borderBottomWidth:1,
 		flexDirection: 'row',
 	},
@@ -144,10 +172,18 @@ const styles = StyleSheet.create({
 	},
 	separator: {
 		height:1,
-		backgroundColor:'#BDBDBD'
+		backgroundColor:'#FAFAFA'
 	},
 	itemTextStyle: {
 		fontSize: 16,
 		color: '#212121'
+	},
+	placeholderTitleStyle: {
+		fontSize: 15,
+		color:'#757575'
+	},
+	selectedTitleStyle: {
+		fontSize: 16,
+		color:'#252525'
 	}
 });

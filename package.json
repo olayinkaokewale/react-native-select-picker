@@ -24,7 +24,8 @@
     "README.md",
     "index.d.ts",
 	"src/index.js",
-	"src/assets"
+	"src/assets",
+	"src/components"
   ],
   "devDependencies": {
     "react": "^16.8.3",
