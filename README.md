@@ -1,8 +1,14 @@
 # React Native Select Picker
 This is a customized select picker that renders the same way on both android and ios.
 
+## why react-native-select-picker and not react-native's Picker?
 The reason why I started this project is because react native Picker become messed up when used on iOS devices
 and I wanted somthing that works and renders the same on both iOS and Android.
+
+## Look and feel
+Here is the rendered sample of this package on android/iOS
+
+![Android/IOS Example](./examples/android.gif)
 
 ## Installation
 To install this package you will have to run the command below using npm
@@ -13,8 +19,8 @@ We dont have an npm link yet. We will update that as soon as we get one.
 ## Usage
 This module has been made to conform to the basic react native Picker in order to easily change import 
 without having to change much on your code-base. We are developer friendly! :D
-```js
-...
+```javascript
+import React, { Component } from 'react';
 import SelectPicker from 'react-native-select-picker'; // Import the package
 ...
 
@@ -49,6 +55,34 @@ export default class YourClass extends Component {
 	...
 }
 ```
+
+## Properties
+### \<SelectPicker> component props
+The following properties can go in the \<SelectPicker> component (equivalent of \<select> in HTML):
+
+| Props | Type | Default | Required | Description |
+|:-----:|:----:|:-------:|:--------:|:-----------:|
+| onValueChange | function: (value: any, index: number) | N/A | No | This is a callback function that is to be used in getting the selected value; You can set a state from here.|
+| selected | any | null | No | The selected value inserted as a property. Can be used to define default selection. |
+| dismissable | boolean | false | No | If dismissable is set as `true`, the select modal can be closed by clicking outside the modal or pressing the back button (on `android`) |
+| disabled | boolean | false | No | When set to `true` component will behave like other disabled input components. i.e. click/press will not work. |
+| placeholder | string | "" | No | This is the label that is shown when no option has been selected |
+| placeholderStyle | StyleSheet | `{fontSize: 15, color:'#757575'}` | No | This is the style of the placeholder text. You can customize how the placeholder text looks before an option is being selected |
+| onSelectedStyle | StyleSheet | `{fontSize: 16, color:'#252525'}` | No | This is the style to apply to the text label upon selection of an option |
+| style | StyleSheet | `{padding:10}` | No | This it the style of the select box itself. Customize to fit your form. |
+| containerStyle | StyleSheet | `{backgroundColor:'#FFFFFF'}` | No | This is the style for the modal dropdown select page. |
+| doneButtonText | string | `"done"` | No | You can change the text being displayed for the confirmation button at the top right corner |
+| doneButtonTextStyle | StyleSheet | `{textAlign:'center',color: '#1976D2',fontWeight: '600',fontSize:16}` | No | You can change the style of the confirm text to suit your design structure or template |
+
+### \<SelectPicker.Item> component props
+The following properties go into the \<SelectPicker.Item> component (equivalent of \<option> in HTML):
+
+| Props | Type | Default | Required | Description |
+|:-----:|:----:|:-------:|:--------:|:-----------:|
+| label | string | `""` | Yes | This is the option label. It replaces the placeholder when an item is selected. |
+| value | any | null | Yes | The value of the option is passed in here and it is the value passed to the `onValueChange` function. |
+| key | string/number | 0 ... N-1 (N being the number of options available) | No | key must be unique to every item |
+
 
 ## Contributing
 This project was started by [Olayinka Okewale](https://github.com/olayinkaokewale)

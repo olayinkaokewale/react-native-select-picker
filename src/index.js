@@ -90,8 +90,8 @@ export default class SelectPicker extends PureComponent {
 							<View style={{flex:1}}>
 							
 							</View>
-							<TouchableOpacity onPress={() => this.onValueChange()} activeOpacity={0.9} style={{padding:5}}>
-								<Text style={[styles.detaultButtonTextStyle, this.props.doneButtonTextStyle]}>{this.props.doneButtonText || 'Done'}</Text>
+							<TouchableOpacity onPress={() => this.onValueChange()} activeOpacity={0.9} style={[{padding:5}, styles.px10]}>
+								<Text style={[styles.defaultButtonTextStyle, this.props.doneButtonTextStyle]}>{this.props.doneButtonText || 'Done'}</Text>
 							</TouchableOpacity>
 						</View>
 						
@@ -153,8 +153,8 @@ const styles = StyleSheet.create({
 	},
 	defaultButtonTextStyle: {
 		textAlign:'center',
-		color: '#1976D2',
-		fontWeight: '600',
+		color: '#757575',
+		fontWeight: '400',
 		fontSize:16
 	},
 	inputStyle: {
@@ -183,7 +183,13 @@ const styles = StyleSheet.create({
 		color:'#757575'
 	},
 	selectedTitleStyle: {
-		fontSize: 16,
+		fontSize: 15,
 		color:'#252525'
+	},
+	px10: {
+		paddingHorizontal: 10,
+	},
+	py10: {
+		paddingVertical: 10,
 	}
 });

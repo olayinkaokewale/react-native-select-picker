@@ -14,12 +14,12 @@ declare module 'react-native-select-picker' {
 		/** 
 		 * Callback for when an item is selected
 		 */
-		onValueChange?: (value: any) => void;
+		onValueChange: (value: any, index: number) => void;
 		
 		/** 
 		 * selected property to set the default selected value
 		 */
-		selected?: any;
+		selected: any;
 
 		/**
 		 * dismissable property to set the modal as dismissable or not. 
