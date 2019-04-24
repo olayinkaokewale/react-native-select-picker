@@ -62,8 +62,8 @@ The following properties can go in the \<SelectPicker> component (equivalent of 
 
 | Props | Type | Default | Required | Description |
 |:-----:|:----:|:-------:|:--------:|:-----------:|
-| onValueChange | function: (value: any, index: number) | N/A | No | This is a callback function that is to be used in getting the selected value; You can set a state from here.|
-| selected | any | null | No | The selected value inserted as a property. Can be used to define default selection. |
+| onValueChange | function: (value: any, index: number) | N/A | Yes | This is a callback function that is to be used in getting the selected value; You can set a state from here.|
+| selected | any | null | Yes | The selected value inserted as a property. Can be used to define default selection. |
 | dismissable | boolean | false | No | If dismissable is set as `true`, the select modal can be closed by clicking outside the modal or pressing the back button (on `android`) |
 | disabled | boolean | false | No | When set to `true` component will behave like other disabled input components. i.e. click/press will not work. |
 | placeholder | string | "" | No | This is the label that is shown when no option has been selected |

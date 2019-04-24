@@ -23,9 +23,7 @@
     "LICENSE",
     "README.md",
     "index.d.ts",
-	"src/index.js",
-	"src/assets",
-	"src/components"
+	"src"
   ],
   "devDependencies": {
     "react": "^16.8.3",
