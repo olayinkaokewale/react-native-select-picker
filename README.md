@@ -1,8 +1,8 @@
-# React Native Select Picker
+# React Native Form Select Picker
 This is a customized select picker that renders the same way on both android and ios.
 
-## why react-native-select-picker and not react-native's Picker?
-The reason why I started this project is because react native Picker become messed up when used on iOS devices
+## why react-native-form-select-picker?
+The reason why I started this project is because react native default Picker becomes messed up when used on iOS devices
 and I wanted somthing that works and renders the same on both iOS and Android.
 
 ## Look and feel
@@ -12,7 +12,7 @@ Here is the rendered sample of this package on android/iOS
 
 ## Installation
 To install this package you will have to run the command below using npm
-> `npm install --save git+https://github.com/olayinkaokewale/react-native-select-picker.git`
+> `npm install --save react-native-form-select-picker`
 
 We dont have an npm link yet. We will update that as soon as we get one.
 
