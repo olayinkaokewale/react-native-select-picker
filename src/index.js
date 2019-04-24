@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { View, Modal, TouchableOpacity, StyleSheet, Image, Text } from 'react-native';
+import { View, Modal, TouchableOpacity, StyleSheet, ScrollView, Text } from 'react-native';
 import PickerItem from './components/pickeritem';
 
 export default class SelectPicker extends PureComponent {
