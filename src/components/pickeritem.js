@@ -4,7 +4,7 @@ import { View, TouchableOpacity, StyleSheet, Image, Text } from 'react-native';
 export default class PickerItem extends PureComponent {
 
 	render() {
-		let icon = (this.props.selected) ? require('./assets/icons/selected.png') : require('./assets/icons/unselected.png');
+		let icon = (this.props.selected) ? require('../assets/icons/selected.png') : require('../assets/icons/unselected.png');
 		return (
 			<TouchableOpacity key={this.props.key} activeOpacity={0.8} onPress={() => this.props.pickSelected(this.props.value)}>
 				<View style={[{flexDirection:'row'}, styles.alignItemsCenter, styles.py10]}>
