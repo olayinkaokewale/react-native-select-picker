@@ -68,7 +68,7 @@ declare module 'react-native-select-picker' {
 		
 	}
 
-	export default class SelectPicker extends React.Component<> {
+	export default class SelectPicker extends React.Component<PickerProps> {
 
 		/**
 		 * The static class Item.
