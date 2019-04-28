@@ -1,22 +1,44 @@
 import React, { PureComponent } from 'react';
-import { View, Modal, TouchableOpacity, StyleSheet, ScrollView, Text } from 'react-native';
+import { AppRegistry, View, Modal, TouchableOpacity, StyleSheet, ScrollView, Text, Platform, Animated, Dimensions } from 'react-native';
 import PickerItem from './components/pickeritem';
 
 export default class SelectPicker extends PureComponent {
 
+	// Build selection index
+	selectionView = null; //Reference of the scroll view.
+	scrollY = 0;
+	
 	// Constructor
 	constructor(props) {
 		super(props);
 
 		this.state = {
 			visible: false,
-			selected: this.props.selected | "",
+			selected: this.props.selected || null,
 			selectedKey: null,
 			selectedLabel: null,
-			dismissable: this.props.dismissable | false,
-			disabled: this.props.disabled | false,
-			placeholder: this.props.placeholder | "",
+			dismissable: this.props.dismissable || false,
+			disabled: this.props.disabled || false,
+			placeholder: this.props.placeholder || "",
+			children: null,
+
+			// ScrollView Position.
+			scrollY: 0,
+			selectionView: null,
+
 		};
+		
+	}
+
+	showSelectModal = () => {
+		this.setState({
+			visible: true
+		});
+	}
+
+	componentDidMount() {
+		this.getSelectedLabel();
+		this.renderChildren();
 	}
 
 	componentWillReceiveProps = newProps => {
@@ -40,6 +62,62 @@ export default class SelectPicker extends PureComponent {
 				placeholder: newProps.placeholder
 			})
 		}
+	}
+
+	renderChildren = () => {
+		const { children } = this.props;
+
+		let childrenRender = React.Children.map(children, (child, index) => {
+			let selected = (child.props.value == this.state.selected);
+			/* let key = (child.props.key != null) ? child.props.key : index; */
+			// if (selected) this.setScrollViewPosition();
+			let newChild = React.cloneElement(child, {
+				selected: selected,
+				/* key: index, */
+				pickSelected: (value, i, label) => {
+					this.setState({
+						selected: value,
+						selectedKey: index,
+						selectedLabel: label
+					}, () => {
+						this.renderChildren();
+					});
+				},
+				returnPosition: (y) => {
+					if (selected) {
+						this.scrollY = y;
+						console.log("Selected Y Position =>", this.scrollY);
+					};
+				}
+			});
+			
+			return [
+				index > 0 && (<View key={index} style={styles.separator} />),
+				newChild
+			]
+		});
+		this.setState({
+			children: childrenRender
+		});
+	}
+
+	getSelectedLabel = () => {
+		const { selected } = this.state;
+		const { children } = this.props;
+
+		if (selected != null) {
+			React.Children.map(children, (child, index) => {
+				if (child.props.value == selected) {
+					console.log("Selected Label =>", child.props.value);
+					this.setState({
+						selectedLabel: child.props.label,
+						selectedKey: child.props.key || index,
+					})
+				}
+			})
+			
+		} 
+		
 	}
 
 	onValueChange = () => {
@@ -76,13 +154,15 @@ export default class SelectPicker extends PureComponent {
 	render() {
 		const children = this.props.children;
 		return (
-			<TouchableOpacity activeOpacity={0.9} style={[styles.inputStyle, this.props.style]} onPress={() => { this.setModalVisibility(true) }}>
+			<TouchableOpacity activeOpacity={0.9} style={[styles.inputStyle, this.props.style]} onPress={() => { this.showSelectModal() }}>
 				{/* Get title of the select element */}
 				{this.getSelectTitle()}
 				
 				{/* Modal to display on touch */}
 				<Modal visible={this.state.visible} onRequestClose={() => this.handleDismiss()} transparent>
-					<TouchableOpacity activeOpacity={1} onPress={() => this.handleDismiss()} style={styles.upperView} />
+					<View style={[styles.upperView, {height:'60%'}]}>
+						<TouchableOpacity activeOpacity={1} onPress={() => this.handleDismiss()} style={{flex:1}} />
+					</View>
 					<View style={[styles.lowerView, this.props.containerStyle]}>
 						
 						{/* Header */}
@@ -96,33 +176,30 @@ export default class SelectPicker extends PureComponent {
 						</View>
 						
 						{/* Body */}
-						<ScrollView>
+						<ScrollView
+							onLayout={event => {this.setScrollViewPosition()}}
+							ref={el => {this.setState({selectionView: el})}}
+							contentOffset={{
+								x: 0,
+								y: this.scrollY
+							}}
+							>
 							<View style={styles.pickerBody}>
-								{React.Children.map(children, (child, index) => {
-									let selected = (child.props.value == this.state.selected);
-									/* let key = (child.props.key != null) ? child.props.key : index; */
-									let newChild = React.cloneElement(child, {
-										selected: selected,
-										/* key: index, */
-										pickSelected: (value, index, label) => {
-											this.setState({
-												selected: value,
-												selectedKey: index,
-												selectedLabel: label,
-											});
-										}
-									})
-									return [
-										index > 0 && (<View key={index} style={styles.separator} />),
-										newChild
-									]
-								})}
+								{this.state.children}
 							</View>
 						</ScrollView>
 					</View>
 				</Modal>
 			</TouchableOpacity>
 		);
+	}
+
+	setScrollViewPosition = () => {
+		console.log("Set Scroll Position =>", this.state.selectionView, Platform.OS, this.scrollY);
+		if (this.state.selectionView != null && this.state.visible && Platform.OS == 'android') {
+			this.state.selectionView.scrollTo({x: 0, y: this.scrollY, animated: false})
+			console.log("ScrollThis =>", this.scrollY);
+		}
 	}
 
 	static Item = PickerItem;
@@ -134,12 +211,11 @@ const styles = StyleSheet.create({
 		backgroundColor:'#00000000',
 	},
 	upperView: {
-		height:'60%',
-		backgroundColor:'#00000044',
+		backgroundColor:'#00000044'
 	},
 	lowerView: {
-		height:'40%',
 		backgroundColor:'#FFFFFF',
+		height: '40%',
 	},
 	pickerHeader: {
 		padding:10,
@@ -193,3 +269,5 @@ const styles = StyleSheet.create({
 		paddingVertical: 10,
 	}
 });
+
+AppRegistry.registerComponent('SelectPicker', () => SelectPicker);

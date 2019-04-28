@@ -5,7 +5,6 @@ declare module 'react-native-select-picker' {
 	export interface ItemProps {
 		label: string;
 		value: any;
-		key?: string | number;
 	}
 
 	export class SelectPickerItem extends React.Component<ItemProps> {}
