@@ -62,8 +62,8 @@ The following properties can go in the \<SelectPicker> component (equivalent of 
 
 | Props | Type | Default | Required | Description |
 |:-----:|:----:|:-------:|:--------:|:-----------:|
-| onValueChange | function: (value: any, index: number) | N/A | Yes | This is a callback function that is to be used in getting the selected value; You can set a state from here.|
-| selected | any | null | Yes | The selected value inserted as a property. Can be used to define default selection. |
+| **onValueChange** | function: (value: any, index: number) | N/A | Yes | This is a callback function that is to be used in getting the selected value; You can set a state from here.|
+| **selected** | any | null | Yes | The selected value inserted as a property. Can be used to define default selection. |
 | dismissable | boolean | false | No | If dismissable is set as `true`, the select modal can be closed by clicking outside the modal or pressing the back button (on `android`) |
 | disabled | boolean | false | No | When set to `true` component will behave like other disabled input components. i.e. click/press will not work. |
 | placeholder | string | "" | No | This is the label that is shown when no option has been selected |
@@ -79,10 +79,8 @@ The following properties go into the \<SelectPicker.Item> component (equivalent 
 
 | Props | Type | Default | Required | Description |
 |:-----:|:----:|:-------:|:--------:|:-----------:|
-| label | string | `""` | Yes | This is the option label. It replaces the placeholder when an item is selected. |
-| value | any | null | Yes | The value of the option is passed in here and it is the value passed to the `onValueChange` function. |
-| key | string/number | 0 ... N-1 (N being the number of options available) | No | key must be unique to every item |
-
+| **label** | string | `""` | Yes | This is the option label. It replaces the placeholder when an item is selected. |
+| **value** | any | null | Yes | The value of the option is passed in here and it is the value passed to the `onValueChange` function. |
 
 ## Contributing
 This project was started by [Olayinka Okewale](https://github.com/olayinkaokewale)
