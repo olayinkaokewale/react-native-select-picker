@@ -24,8 +24,7 @@ export default class SelectPicker extends PureComponent {
 
 			// ScrollView Position.
 			scrollY: 0,
-			selectionView: null,
-
+			
 		};
 		
 	}
@@ -178,11 +177,7 @@ export default class SelectPicker extends PureComponent {
 						{/* Body */}
 						<ScrollView
 							onLayout={event => {this.setScrollViewPosition()}}
-							ref={el => {this.setState({selectionView: el})}}
-							contentOffset={{
-								x: 0,
-								y: this.scrollY
-							}}
+							ref={el => {this.selectionView = el}}
 							>
 							<View style={styles.pickerBody}>
 								{this.state.children}
@@ -195,11 +190,10 @@ export default class SelectPicker extends PureComponent {
 	}
 
 	setScrollViewPosition = () => {
-		console.log("Set Scroll Position =>", this.state.selectionView, Platform.OS, this.scrollY);
-		if (this.state.selectionView != null && this.state.visible && Platform.OS == 'android') {
-			this.state.selectionView.scrollTo({x: 0, y: this.scrollY, animated: false})
-			console.log("ScrollThis =>", this.scrollY);
-		}
+		setTimeout(() => {
+			if (this.selectionView != null) this.selectionView.scrollTo({x:0, y:this.scrollY, duration:0, animated:false});
+		}, 200); 
+		// Reason for setting timeout is because on iOS, the children elements might have not fully rendered before this method is fired. We have to get a way to slow it down and get the latest scrollY;
 	}
 
 	static Item = PickerItem;
