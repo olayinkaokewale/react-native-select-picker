@@ -14,6 +14,7 @@ export default class SelectPicker extends PureComponent {
 
 		this.state = {
 			visible: false,
+			childrenItems: this.props.children || [],
 			selected: this.props.selected || null,
 			selectedKey: null,
 			selectedLabel: null,
@@ -41,6 +42,11 @@ export default class SelectPicker extends PureComponent {
 	}
 
 	componentWillReceiveProps = newProps => {
+		if (newProps.children != this.state.childrenItems) {
+			this.setState({
+				childrenItems: newProps.children
+			});
+		}
 		if (newProps.selected != this.state.selected) {
 			this.setState({
 				selected: newProps.selected
@@ -64,9 +70,9 @@ export default class SelectPicker extends PureComponent {
 	}
 
 	renderChildren = () => {
-		const { children } = this.props;
+		const { childrenItems } = this.state;
 
-		let childrenRender = React.Children.map(children, (child, index) => {
+		let childrenRender = React.Children.map(childrenItems, (child, index) => {
 			let selected = (child.props.value == this.state.selected);
 			/* let key = (child.props.key != null) ? child.props.key : index; */
 			// if (selected) this.setScrollViewPosition();

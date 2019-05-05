@@ -1,6 +1,6 @@
 
 
-declare module 'react-native-select-picker' {
+declare module 'react-native-form-select-picker' {
 	
 	export interface ItemProps {
 		label: string;
