@@ -1,5 +1,16 @@
-# React Native Form Select Picker
+# React Native Form Select Picker _(v 0.0.4)_
 This is a customized select picker that renders the same way on both android and ios.
+
+## what's new?
+Version 0.0.4 fixed the bugs below:
+
+- Changes in children props not being rendered if changed
+- IntelliSense not able to provide prop suggestions and details about props
+- iOS rendering issues
+
+if you already have this package in your project update to the 
+latest version by running:
+> `npm install --save react-native-form-select-picker@latest`
 
 ## why react-native-form-select-picker?
 The reason why I started this project is because react native default Picker becomes messed up when used on iOS devices
