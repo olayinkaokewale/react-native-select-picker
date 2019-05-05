@@ -45,6 +45,8 @@ export default class SelectPicker extends PureComponent {
 		if (newProps.children != this.state.childrenItems) {
 			this.setState({
 				childrenItems: newProps.children
+			}, () => {
+				this.renderChildren();
 			});
 		}
 		if (newProps.selected != this.state.selected) {
