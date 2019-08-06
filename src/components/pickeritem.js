@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
 	imageStyle: {
 		width: 20,
 		height: 20,
-		resizeMode: 'center'
+		resizeMode: 'contain' /* contain works best on both ios and android. center does not display on iOS */
 	},
 	separator: {
 		height:1,
