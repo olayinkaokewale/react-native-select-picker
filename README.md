@@ -1,11 +1,10 @@
-# React Native Form Select Picker _(v 0.0.4)_
+# React Native Form Select Picker _(v 0.0.5)_
 This is a customized select picker that renders the same way on both android and ios.
 
 ## What's new?
-Version 0.0.4 fixed the bugs below:
+Version 0.0.5 fixed the bugs below:
 
-- Changes in children props not being rendered if changed
-- IntelliSense not able to provide prop suggestions and details about props
+- Temporarily fixed breaking changes in React 0.60.0 changing from componentWillReceiveProps to UNSAFE_componentWillReceiveProps
 - iOS rendering issues
 
 if you already have this package in your project update to the 
@@ -92,6 +91,11 @@ The following properties go into the \<SelectPicker.Item> component (equivalent 
 |:-----:|:----:|:-------:|:--------:|:-----------:|
 | **label** | string | `""` | Yes | This is the option label. It replaces the placeholder when an item is selected. |
 | **value** | any | null | Yes | The value of the option is passed in here and it is the value passed to the `onValueChange` function. |
+
+## Changelog
+- 0.0.5: iOS picker item select icon bug fixed. (Now showing the select icon)
+- 0.0.4: Bug fixes in children re-render on update, IntelliSense and iOS UI fix.
+
 
 ## Contributing
 This project was started by [Olayinka Okewale](https://github.com/olayinkaokewale)
