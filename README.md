@@ -4,7 +4,7 @@ This is a customized select picker that renders the same way on both android and
 ## What's new?
 Version 0.0.5 fixed the bugs below:
 
-- Temporarily fixed breaking changes in React 0.60.0 changing from componentWillReceiveProps to UNSAFE_componentWillReceiveProps
+- Temporarily fixed breaking changes in React Native 0.60.0 changing from componentWillReceiveProps to UNSAFE_componentWillReceiveProps
 - iOS rendering issues
 
 if you already have this package in your project update to the 
@@ -93,7 +93,7 @@ The following properties go into the \<SelectPicker.Item> component (equivalent 
 | **value** | any | null | Yes | The value of the option is passed in here and it is the value passed to the `onValueChange` function. |
 
 ## Changelog
-- 0.0.5: iOS picker item select icon bug fixed. (Now showing the select icon)
+- 0.0.5: RN ^0.60 breaking changes fixed and iOS picker item select icon bug fixed. (Now showing the select icon)
 - 0.0.4: Bug fixes in children re-render on update, IntelliSense and iOS UI fix.
 
 
