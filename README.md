@@ -18,7 +18,7 @@ and I wanted somthing that works and renders the same on both iOS and Android.
 ## Look and feel
 Here is the rendered sample of this package on android/iOS
 
-![Android/IOS Example](./examples/android.gif)
+![Android/IOS Example](./examples/ios.gif)
 
 ## Installation
 To install this package you will have to run the command below using npm
