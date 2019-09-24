@@ -26,7 +26,7 @@ export default class SelectPicker extends PureComponent {
 
 			// ScrollView Position.
 			scrollY: 0,
-			
+			showIOS: this.props.showIOS || true,
 		};
 		
 	}
@@ -73,8 +73,7 @@ export default class SelectPicker extends PureComponent {
 	}
 
 	renderChildren = () => {
-		const { childrenItems } = this.state;
-		const {showIOS} = this.props;
+		const { childrenItems, showIOS=true } = this.state;
 
 		let childrenRender = null;
 		if (!showIOS || (Platform.OS != "ios" && Platform.OS != "macos")) {
@@ -109,6 +108,11 @@ export default class SelectPicker extends PureComponent {
 			});
 		} else {
 			childrenRender = React.Children.map(childrenItems, (child, index) => {
+				if (child.props.value == this.state.selected) {
+					this.setState({
+						selectedLabel: child.props.label
+					});
+				}
 				return <PickerItemNative {...child.props} />
 			});
 		}
@@ -169,16 +173,16 @@ export default class SelectPicker extends PureComponent {
 	}
 
 	render() {
-		const { showIOS=false } = this.props;
+		const { showIOS=true } = this.state;
 		return (
 			<TouchableOpacity activeOpacity={0.9} style={[styles.inputStyle, this.props.style]} onPress={() => { this.showSelectModal() }}>
 				{/* Get title of the select element */}
 				{this.getSelectTitle()}
 				
 				{/* Modal to display on touch */}
-				<Modal visible={this.state.visible} onRequestClose={() => this.handleDismiss()} transparent>
+				<Modal visible={this.state.visible} onRequestClose={() => this.onValueChange()} transparent>
 					<View style={[styles.upperView, {height:'60%'}]}>
-						<TouchableOpacity activeOpacity={1} onPress={() => this.handleDismiss()} style={{flex:1}} />
+						<TouchableOpacity activeOpacity={1} onPress={() => this.onValueChange()} style={{flex:1}} />
 					</View>
 					<View style={[styles.lowerView, this.props.containerStyle]}>
 						
@@ -203,7 +207,12 @@ export default class SelectPicker extends PureComponent {
 						</ScrollView>)}
 						{(showIOS && (Platform.OS == "macos" || Platform.OS == "ios")) && (
 							<Picker
-								onValueChange={(item, index) => this.setState({selected: item})}
+								onValueChange={(item, index) => {
+									this.setState({
+										selected: item,
+										selectedKey: index
+									});
+								}}
 								selectedValue={this.state.selected}
 								>
 								{this.state.children}
