@@ -1,4 +1,4 @@
-# React Native Form Select Picker _(v 0.0.5)_
+# React Native Form Select Picker _(v 0.0.6)_
 This is a customized select picker that renders the same way on both android and ios.
 
 ## What's new?
