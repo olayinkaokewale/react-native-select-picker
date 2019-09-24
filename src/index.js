@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
-import { AppRegistry, View, Modal, TouchableOpacity, StyleSheet, ScrollView, Text, Platform, Animated, Dimensions } from 'react-native';
+import { AppRegistry, View, Modal, TouchableOpacity, StyleSheet, ScrollView, Text, Platform, Animated, Dimensions, Picker } from 'react-native';
 import PickerItem from './components/pickeritem';
+import PickerItemNative from './components/picketitem-native';
 
 export default class SelectPicker extends PureComponent {
 
@@ -18,7 +19,7 @@ export default class SelectPicker extends PureComponent {
 			selected: this.props.selected || null,
 			selectedKey: null,
 			selectedLabel: null,
-			dismissable: this.props.dismissable || false,
+			dismissable: this.props.dismissable || true,
 			disabled: this.props.disabled || false,
 			placeholder: this.props.placeholder || "",
 			children: null,
@@ -73,36 +74,45 @@ export default class SelectPicker extends PureComponent {
 
 	renderChildren = () => {
 		const { childrenItems } = this.state;
+		const {showIOS} = this.props;
 
-		let childrenRender = React.Children.map(childrenItems, (child, index) => {
-			let selected = (child.props.value == this.state.selected);
-			/* let key = (child.props.key != null) ? child.props.key : index; */
-			// if (selected) this.setScrollViewPosition();
-			let newChild = React.cloneElement(child, {
-				selected: selected,
-				/* key: index, */
-				pickSelected: (value, i, label) => {
-					this.setState({
-						selected: value,
-						selectedKey: index,
-						selectedLabel: label
-					}, () => {
-						this.renderChildren();
-					});
-				},
-				returnPosition: (y) => {
-					if (selected) {
-						this.scrollY = y;
-						console.log("Selected Y Position =>", this.scrollY);
-					};
-				}
+		let childrenRender = null;
+		if (!showIOS || (Platform.OS != "ios" && Platform.OS != "macos")) {
+			childrenRender = React.Children.map(childrenItems, (child, index) => {
+				let selected = (child.props.value == this.state.selected);
+				/* let key = (child.props.key != null) ? child.props.key : index; */
+				// if (selected) this.setScrollViewPosition();
+				let newChild = React.cloneElement(child, {
+					selected: selected,
+					/* key: index, */
+					pickSelected: (value, i, label) => {
+						this.setState({
+							selected: value,
+							selectedKey: index,
+							selectedLabel: label
+						}, () => {
+							this.renderChildren();
+						});
+					},
+					returnPosition: (y) => {
+						if (selected) {
+							this.scrollY = y;
+							console.log("Selected Y Position =>", this.scrollY);
+						};
+					}
+				});
+				
+				return [
+					index > 0 && (<View key={index} style={styles.separator} />),
+					newChild
+				]
 			});
-			
-			return [
-				index > 0 && (<View key={index} style={styles.separator} />),
-				newChild
-			]
-		});
+		} else {
+			childrenRender = React.Children.map(childrenItems, (child, index) => {
+				return <PickerItemNative {...child.props} />
+			});
+		}
+		
 		this.setState({
 			children: childrenRender
 		});
@@ -159,7 +169,7 @@ export default class SelectPicker extends PureComponent {
 	}
 
 	render() {
-		const children = this.props.children;
+		const { showIOS=false } = this.props;
 		return (
 			<TouchableOpacity activeOpacity={0.9} style={[styles.inputStyle, this.props.style]} onPress={() => { this.showSelectModal() }}>
 				{/* Get title of the select element */}
@@ -183,14 +193,22 @@ export default class SelectPicker extends PureComponent {
 						</View>
 						
 						{/* Body */}
-						<ScrollView
+						{(!showIOS || (Platform.OS != "ios" && Platform.OS != "macos")) && (<ScrollView
 							onLayout={event => {this.setScrollViewPosition()}}
 							ref={el => {this.selectionView = el}}
 							>
 							<View style={styles.pickerBody}>
 								{this.state.children}
 							</View>
-						</ScrollView>
+						</ScrollView>)}
+						{(showIOS && (Platform.OS == "macos" || Platform.OS == "ios")) && (
+							<Picker
+								onValueChange={(item, index) => this.setState({selected: item})}
+								selectedValue={this.state.selected}
+								>
+								{this.state.children}
+							</Picker>
+						)}
 					</View>
 				</Modal>
 			</TouchableOpacity>
@@ -205,7 +223,6 @@ export default class SelectPicker extends PureComponent {
 	}
 
 	static Item = PickerItem;
-
 }
 
 const styles = StyleSheet.create({
