@@ -2,10 +2,9 @@
 This is a customized select picker that renders the same way on both android and ios.
 
 ## What's new?
-Version 0.0.5 fixed the bugs below:
+Version 0.0.6 added a new feature:
 
-- Temporarily fixed breaking changes in React Native 0.60.0 changing from componentWillReceiveProps to UNSAFE_componentWillReceiveProps
-- iOS rendering issues
+- rendering of iOS native picker by default. _(this is due to the latest rejection of apps by iOS due to non-iOS experience)_
 
 if you already have this package in your project update to the 
 latest version by running:
