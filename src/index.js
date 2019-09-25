@@ -26,7 +26,7 @@ export default class SelectPicker extends PureComponent {
 
 			// ScrollView Position.
 			scrollY: 0,
-			showIOS: this.props.showIOS || true,
+			showIOS: this.props.showIOS || false,
 		};
 		
 	}

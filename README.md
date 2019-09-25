@@ -1,10 +1,10 @@
 # React Native Form Select Picker _(v 0.0.6)_
-This is a customized select picker that renders the same way on both android and ios.
+This is a customized select picker that renders the same way on all platforms **(If you, however, want the native experience on iOS; set `showIOS` to be `true`)**.
 
 ## What's new?
 Version 0.0.6 added a new feature:
 
-- rendering of iOS native picker by default. _(this is due to the latest rejection of apps by iOS due to non-iOS experience)_
+- rendering of iOS native picker when `showIOS` is set to true. _(this is due to the latest rejection of apps by iOS due to non-iOS experience)_
 
 if you already have this package in your project update to the 
 latest version by running:
@@ -74,7 +74,7 @@ The following properties can go in the \<SelectPicker> component (equivalent of 
 | **onValueChange** | function: (value: any, index: number) | N/A | Yes | This is a callback function that is to be used in getting the selected value; You can set a state from here.|
 | **selected** | any | null | Yes | The selected value inserted as a property. Can be used to define default selection. |
 | dismissable | boolean | true | No | If dismissable is set as `true`, the select modal can be closed by clicking outside the modal or pressing the back button (on `android`) |
-| showIOS | boolean | true | No | Disables the native ios picker when set to `false` |
+| showIOS | boolean | false | No | Enables the native ios picker when set to `true` |
 | disabled | boolean | false | No | When set to `true` component will behave like other disabled input components. i.e. click/press will not work. |
 | placeholder | string | "" | No | This is the label that is shown when no option has been selected |
 | placeholderStyle | StyleSheet | `{fontSize: 15, color:'#757575'}` | No | This is the style of the placeholder text. You can customize how the placeholder text looks before an option is being selected |
@@ -93,7 +93,7 @@ The following properties go into the \<SelectPicker.Item> component (equivalent 
 | **value** | any | null | Yes | The value of the option is passed in here and it is the value passed to the `onValueChange` function. |
 
 ## Changelog
-- 0.0.6: Added `showIOS` prop to show or disable native iOS picker. _(iOS reviewers give high preference to the iOS native picker while reviewing to reject or accept an app)_
+- 0.0.6: Added `showIOS` prop to enable or disable native iOS picker. _(iOS reviewers give high preference to the iOS native picker while reviewing to reject or accept an app)_
 - 0.0.5: RN ^0.60 breaking changes fixed and iOS picker item select icon bug fixed. (Now showing the select icon)
 - 0.0.4: Bug fixes in children re-render on update, IntelliSense and iOS UI fix.
 
