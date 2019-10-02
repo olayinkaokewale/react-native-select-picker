@@ -113,7 +113,10 @@ export default class SelectPicker extends PureComponent {
 						selectedLabel: child.props.label
 					});
 				}
-				return <PickerItemNative {...child.props} />
+				return [
+					(index == 0) && (<PickerItemNative label={this.state.placeholder != "" ? this.state.placeholder : "-- select --"} value={null} />),
+					<PickerItemNative {...child.props} />
+				]
 			});
 		}
 		
@@ -165,7 +168,7 @@ export default class SelectPicker extends PureComponent {
 	}
 
 	getSelectTitle = () => {
-		if (this.state.selectedLabel != null) {
+		if (this.state.selected != null && this.state.selected != undefined && String(this.state.selected).length > 0) {
 			return (<Text numberOfLines={1} style={[styles.selectedTitleStyle, this.props.onSelectedStyle]}>{this.state.selectedLabel}</Text>);
 		}
 		
