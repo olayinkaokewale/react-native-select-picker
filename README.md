@@ -1,9 +1,10 @@
-# React Native Form Select Picker _(v 0.0.6)_
+# React Native Form Select Picker _(v 0.0.7)_
 This is a customized select picker that renders the same way on all platforms **(If you, however, want the native experience on iOS; set `showIOS` to be `true`)**.
 
 ## What's new?
-Version 0.0.6 added a new feature:
+Version 0.0.7 added a new feature:
 
+- Minor bug fix on iOS select picker _(When opened, the default selected is the placeholder when selected value is `null`, `undefined` or `empty string`)_
 - rendering of iOS native picker when `showIOS` is set to true. _(this is due to the latest rejection of apps by iOS due to non-iOS experience)_
 
 if you already have this package in your project update to the 
@@ -93,6 +94,7 @@ The following properties go into the \<SelectPicker.Item> component (equivalent 
 | **value** | any | null | Yes | The value of the option is passed in here and it is the value passed to the `onValueChange` function. |
 
 ## Changelog
+- 0.0.7: Minor bug fix on iOS select picker _(When opened, the default selected is the placeholder when selected value is `null`, `undefined` or `empty string`)_
 - 0.0.6: Added `showIOS` prop to enable or disable native iOS picker. _(iOS reviewers give high preference to the iOS native picker while reviewing to reject or accept an app)_
 - 0.0.5: RN ^0.60 breaking changes fixed and iOS picker item select icon bug fixed. (Now showing the select icon)
 - 0.0.4: Bug fixes in children re-render on update, IntelliSense and iOS UI fix.
@@ -100,8 +102,10 @@ The following properties go into the \<SelectPicker.Item> component (equivalent 
 
 ## Contributing
 This project was started by [Olayinka Okewale](https://github.com/olayinkaokewale)
-on 20th April, 2019. If you'd love to contribute to this project, contact me on
-[okjool2012@gmail.com](mailto:okjool2012@gmail.com)
+on 20th April, 2019. If you'd love to contribute, fork and send in a pull request.
+
+<!-- , contact me on
+[okjool2012@gmail.com](mailto:okjool2012@gmail.com) -->
 
 ## Support Us
 If you like this project please give a star and follow me on my social media networks.
