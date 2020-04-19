@@ -1,20 +1,22 @@
+import React from 'react';
+import { ViewStyle, StyleProp, TextStyle } from "react-native";
 
 
 declare module 'react-native-form-select-picker' {
-	
+
 	export interface ItemProps {
 		label: string;
 		value: any;
 	}
 
-	export class SelectPickerItem extends React.Component<ItemProps> {}
+	export class SelectPickerItem extends React.Component<ItemProps> { }
 
 	export interface PickerProps {
 		/** 
 		 * Callback for when an item is selected
 		 */
 		onValueChange: (value: any, index: number) => void;
-		
+
 		/** 
 		 * selected property to set the default selected value
 		 */
@@ -38,22 +40,22 @@ declare module 'react-native-form-select-picker' {
 		/**
 		 *  style sheet to use when an option is selected.
 		 */
-		onSelectedStyle?: StyleSheet;
+		onSelectedStyle?: StyleProp<ViewStyle>;
 
 		/**
 		 *  style sheet to use when placeholder is still selected.
 		 */
-		placeholderStyle?: StyleSheet;
+		placeholderStyle?: StyleProp<TextStyle>;
 
 		/**
 		 *  style sheet to use for the wrapping view
 		 */
-		style?: StyleSheet;
+		style?: StyleProp<ViewStyle>;
 
 		/**
 		 * container style sheet for the modal container holding the option values
 		 */
-		containerStyle?: StyleSheet;
+		containerStyle?: StyleProp<ViewStyle>;
 
 		/**
 		 * Done button text (located at the header section)
@@ -63,7 +65,7 @@ declare module 'react-native-form-select-picker' {
 		/**
 		 * Done button styling. (Text component styling)
 		 */
-		doneButtonTextStyle?: StyleSheet;
+		doneButtonTextStyle?: StyleProp<TextStyle>;
 
 	}
 
