@@ -65,10 +65,6 @@ declare module 'react-native-form-select-picker' {
 		 */
 		doneButtonTextStyle?: StyleSheet;
 
-		/**
-		 * @param {boolean} showIOS displays the ios native picker when implemented on ios
-		 */
-		showIOS?: boolean;
 	}
 
 	export default class SelectPicker extends React.Component<PickerProps> {

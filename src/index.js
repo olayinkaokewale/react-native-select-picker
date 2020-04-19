@@ -25,58 +25,61 @@ export default class SelectPicker extends PureComponent {
 			children: null,
 
 			// ScrollView Position.
-			scrollY: 0,
-			showIOS: this.props.showIOS || false,
+			scrollY: 0
 		};
 		
 	}
 
 	showSelectModal = () => {
-		this.setState({
+		this.stateSet({
 			visible: true
 		});
 	}
 
 	componentDidMount() {
+		this.componentIsMounted = true; // Set component is mounted to true so we know it is okay to update states.
 		this.getSelectedLabel();
 		this.renderChildren();
 	}
 
-	UNSAFE_componentWillReceiveProps = newProps => {
-		if (newProps.children != this.state.childrenItems) {
-			this.setState({
-				childrenItems: newProps.children
+	componentWillUnmount() {
+		this.componentIsMounted = false; // Set component is mounted to false so we know it is not okay to update states.
+	}
+
+	/* Creation of our customized setState which checks if component is mounted or not */
+	stateSet = (...args) => {
+		if (this.componentIsMounted) {
+			this.setState(...args); // set the state and call the callback function if any...
+		}
+		// else do nothing to prevent memory leak.
+	}
+
+	componentDidUpdate = (prevProps, prevState) => {
+		if (prevProps.children != this.props.children) {
+			this.stateSet({
+				childrenItems: this.props.children
 			}, () => {
 				this.renderChildren();
 			});
 		}
-		if (newProps.selected != this.state.selected) {
-			this.setState({
-				selected: newProps.selected
-			})
-		}
-		if (newProps.dismissable != this.state.dismissable) {
-			this.setState({
-				dismissable: newProps.dismissable
-			})
-		}
-		if (newProps.disabled != this.state.disabled) {
-			this.setState({
-				disabled: newProps.disabled
-			})
-		}
-		if (newProps.placeholder != this.state.placeholder) {
-			this.setState({
-				placeholder: newProps.placeholder
-			})
+
+		let update = {}; //Initialize the update object
+		if (prevProps.selected != this.props.selected) update.selected = this.props.selected;
+		if (prevProps.dismissable != this.props.dismissable) update.dismissable = this.props.dismissable;
+		if (prevProps.disabled != this.props.disabled) update.disabled = this.props.disabled;
+		if (prevProps.placeholder != this.props.placeholder) update.placeholder = this.props.placeholder;
+
+		// Check if update object is not empty.
+		if (Object.keys(update).length > 0) {
+			this.stateSet(update);
 		}
 	}
 
 	renderChildren = () => {
-		const { childrenItems, showIOS=true } = this.state;
+		const { childrenItems } = this.state;
 
 		let childrenRender = null;
-		if (!showIOS || (Platform.OS != "ios" && Platform.OS != "macos")) {
+		if (Platform.OS != "ios" && Platform.OS != "macos") {
 			childrenRender = React.Children.map(childrenItems, (child, index) => {
 				let selected = (child.props.value == this.state.selected);
 				/* let key = (child.props.key != null) ? child.props.key : index; */
@@ -85,7 +88,7 @@ export default class SelectPicker extends PureComponent {
 					selected: selected,
 					/* key: index, */
 					pickSelected: (value, i, label) => {
-						this.setState({
+						this.stateSet({
 							selected: value,
 							selectedKey: index,
 							selectedLabel: label
@@ -109,7 +112,7 @@ export default class SelectPicker extends PureComponent {
 		} else {
 			childrenRender = React.Children.map(childrenItems, (child, index) => {
 				if (child.props.value == this.state.selected) {
-					this.setState({
+					this.stateSet({
 						selectedLabel: child.props.label
 					});
 				}
@@ -120,7 +123,7 @@ export default class SelectPicker extends PureComponent {
 			});
 		}
 		
-		this.setState({
+		this.stateSet({
 			children: childrenRender
 		});
 	}
@@ -133,7 +136,7 @@ export default class SelectPicker extends PureComponent {
 			React.Children.map(children, (child, index) => {
 				if (child.props.value == selected) {
 					console.log("Selected Label =>", child.props.value);
-					this.setState({
+					this.stateSet({
 						selectedLabel: child.props.label,
 						selectedKey: child.props.key || index,
 					})
@@ -155,7 +158,7 @@ export default class SelectPicker extends PureComponent {
 
 	setModalVisibility = bool => {
 		if (!this.state.disabled || !bool) {
-			this.setState({
+			this.stateSet({
 				visible: bool
 			})
 		}
@@ -176,7 +179,6 @@ export default class SelectPicker extends PureComponent {
 	}
 
 	render() {
-		const { showIOS=true } = this.state;
 		return (
 			<TouchableOpacity activeOpacity={0.9} style={[styles.inputStyle, this.props.style]} onPress={() => { this.showSelectModal() }}>
 				{/* Get title of the select element */}
@@ -200,7 +202,7 @@ export default class SelectPicker extends PureComponent {
 						</View>
 						
 						{/* Body */}
-						{(!showIOS || (Platform.OS != "ios" && Platform.OS != "macos")) && (<ScrollView
+						{(Platform.OS != "ios" && Platform.OS != "macos") && (<ScrollView
 							onLayout={event => {this.setScrollViewPosition()}}
 							ref={el => {this.selectionView = el}}
 							>
@@ -208,10 +210,10 @@ export default class SelectPicker extends PureComponent {
 								{this.state.children}
 							</View>
 						</ScrollView>)}
-						{(showIOS && (Platform.OS == "macos" || Platform.OS == "ios")) && (
+						{(Platform.OS == "macos" || Platform.OS == "ios") && (
 							<Picker
 								onValueChange={(item, index) => {
-									this.setState({
+									this.stateSet({
 										selected: item,
 										selectedKey: index
 									});
