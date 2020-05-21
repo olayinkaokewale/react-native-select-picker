@@ -1,12 +1,8 @@
-# React Native Form Select Picker _(v 0.0.8)_
+# React Native Form Select Picker _(v 0.0.81)_
 This is a customized select picker that renders the same way on all platforms.
 
 ## What's new?
-Version 0.0.8 added a new feature:
-
-- Minor patch to remove old and deprecated functions to support new `react` versions
-- Code optimization to address memory leaks when component is unmounted.
-- Removed `showIOS` props while using native picker for iOS devices as required by Apple
+Version 0.0.81 removes the default **-- select --** placeholder on iOS.
 
 if you already have this package in your project update to the 
 latest version by running:

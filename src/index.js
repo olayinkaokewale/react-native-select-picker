@@ -117,7 +117,7 @@ export default class SelectPicker extends PureComponent {
 					});
 				}
 				return [
-					(index == 0) && (<PickerItemNative label={this.state.placeholder != "" ? this.state.placeholder : "-- select --"} value={null} />),
+					(index == 0) && (<PickerItemNative label={this.state.placeholder} value={null} />),
 					<PickerItemNative {...child.props} />
 				]
 			});
