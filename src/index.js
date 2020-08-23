@@ -1,17 +1,9 @@
 import React, { PureComponent } from 'react';
-import { AppRegistry, View, Modal, TouchableOpacity, StyleSheet, ScrollView, Text, Platform, Picker } from 'react-native';
+import { AppRegistry, View, Modal, TouchableOpacity, StyleSheet, ScrollView, Text, Platform } from 'react-native';
+import { Picker } from '@react-native-community/picker';
 import PickerItem from './components/pickeritem';
 import PickerItemNative from './components/picketitem-native';
-
-const DEBUG_ENABLED = false;
-
-const Logger = (...args) => {
-	if (DEBUG_ENABLED) {
-		console.log(...args);
-	}
-
-	return;
-}
+import Logger from './utils/logger';
 
 export default class SelectPicker extends PureComponent {
 
@@ -109,7 +101,7 @@ export default class SelectPicker extends PureComponent {
 					returnPosition: (y) => {
 						if (selected) {
 							this.scrollY = y;
-							Logger("Selected Y Position =>", this.scrollY);
+							Logger.log("Selected Y Position =>", this.scrollY);
 						};
 					}
 				});
@@ -145,7 +137,7 @@ export default class SelectPicker extends PureComponent {
 		if (selected != null) {
 			React.Children.map(children, (child, index) => {
 				if (child.props.value == selected) {
-					Logger("Selected Label =>", child.props.value);
+					Logger.log("Selected Label =>", child.props.value);
 					this.stateSet({
 						selectedLabel: child.props.label,
 						selectedKey: child.props.key || index,
@@ -162,7 +154,7 @@ export default class SelectPicker extends PureComponent {
 		if (typeof this.props.onValueChange == 'function') {
 			return this.props.onValueChange(this.state.selected, this.state.selectedKey);
 		} else {
-			Logger("onValueChange props must be a function. Function not passed");
+			Logger.log("onValueChange props must be a function. Function not passed");
 		}
 	}
 

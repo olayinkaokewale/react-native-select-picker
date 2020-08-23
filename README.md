@@ -1,12 +1,19 @@
-# React Native Form Select Picker _(v 0.0.81)_
+# React Native Form Select Picker _(v 0.0.9)_
 This is a customized select picker that renders the same way on all platforms.
 
 ## What's new?
-Version 0.0.81 removes the default **-- select --** placeholder on iOS.
+Version 0.0.9 replaces `Picker` in `react-native` to `@react-native-community/picker` for `react-native` 0.60 and above. Also, test suites has been added for development purposes.
 
-if you already have this package in your project update to the 
-latest version by running:
+## Installation
+if you already have this package in your project update to the latest version by running:
 > `npm install --save react-native-form-select-picker@latest`
+
+| react-native version | version to install |
+| --- | --- |
+| 0.60 and above | 0.0.9 and above |
+| < 0.60 | 0.0.81 |
+
+---
 
 ## Why react-native-form-select-picker?
 The reason why I started this project is because react native default Picker becomes messed up when used on iOS devices
@@ -27,40 +34,34 @@ To install this package you will have to run the command below using npm
 ## Usage
 This module has been made to conform to the basic react native Picker in order to easily change import 
 without having to change much on your code-base. We are developer friendly! :D
+
 ```javascript
-import React, { Component } from 'react';
-import SelectPicker from 'react-native-select-picker'; // Import the package
-...
+import React, { useState } from 'react';
+import SelectPicker from 'react-native-form-select-picker'; // Import the package
+//...
+const options = ["Apple", "Banana", "Orange"];
+const YourComponent = ({ /* your props */ }) => {
+	const [selected, setSelected] = useState();
+	return (
+		//...
 
-export default class YourClass extends Component {
-	...
+		<SelectPicker
+			onValueChange={(value) => {
+				// Do anything you want with the value. 
+				// For example, save in state.
+				setSelected(value);
+			}}
+			selected={selected}
+			>
+			
+			{Object.values(options).map((val, index) => (
+				<SelectPicker.Item label={val} value={val} key={index} />
+			))}
 
-	render() {
-		return (
-			...
+		</SelectPicker>
 
-			<SelectPicker
-				onValueChange={(value) => {
-					// Do anything you want with the value. 
-					// For example, save in state.
-					this.setState({
-						selected: value
-					})
-				}}
-				selected={this.state.selected}
-				>
-				...
-				<SelectPicker.Item label="Apple" value="apple" />	
-				<SelectPicker.Item label="Banana" value="banana" />	
-				<SelectPicker.Item label="Orange" value="orange" />	
-				...
-			</SelectPicker>
-
-			...
-		)
-	}
-
-	...
+		//...
+	)
 }
 ```
 
@@ -91,6 +92,8 @@ The following properties go into the \<SelectPicker.Item> component (equivalent 
 | **value** | any | null | Yes | The value of the option is passed in here and it is the value passed to the `onValueChange` function. |
 
 ## Changelog
+- 0.0.9: Removed `Picker` from `react-native` library and imported from `@react-native-community/picker` for projects using `react-native` 0.60 and above.
+- 0.0.81: Removed the default **-- select --** placeholder on iOS.
 - 0.0.8: Updated the deprecated functions in `react` to new ones and optimized the code to avoid memory leaks when component is unmounted. Removed `showIOS` prop _(Native picker is default for iOS now - no need to include this)_
 - 0.0.7: Minor bug fix on iOS select picker _(When opened, the default selected is the placeholder when selected value is `null`, `undefined` or `empty string`)_
 - 0.0.6: Added `showIOS` prop to enable or disable native iOS picker. _(iOS reviewers give high preference to the iOS native picker while reviewing to reject or accept an app)_
@@ -100,7 +103,7 @@ The following properties go into the \<SelectPicker.Item> component (equivalent 
 
 ## Contributing
 This project was started by [Olayinka Okewale](https://github.com/olayinkaokewale)
-on 20th April, 2019. If you'd love to contribute, fork and send in a pull request.
+on 20th April, 2019. If you'd love to contribute, fork, make your edits, run `npm test` and send in a pull request.
 
 ## Support Us
 If you like this project please give a star and follow me on my social media networks.

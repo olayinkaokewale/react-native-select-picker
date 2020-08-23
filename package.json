@@ -1,14 +1,14 @@
 {
   "name": "react-native-form-select-picker",
-  "version": "0.0.81",
+  "version": "0.0.9",
   "description": "Customized select picker (just like <select> in html) that renders the same on iOS and Android",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
-	"type": "git",
-	"url": "https://github.com/olayinkaokewale/react-native-select-picker.git"
+    "type": "git",
+    "url": "https://github.com/olayinkaokewale/react-native-select-picker.git"
   },
   "keywords": [
     "react-native",
@@ -23,10 +23,31 @@
     "LICENSE",
     "README.md",
     "index.d.ts",
-	"src"
+    "src"
   ],
   "devDependencies": {
-    "react": "^16.8.3",
-    "react-native": "^0.59.5"
+    "react": "^16.13.1",
+    "react-native": "^0.63.1",
+    "@babel/core": "^7.10.5",
+    "@babel/plugin-proposal-class-properties": "^7.4.4",
+    "@babel/plugin-syntax-jsx": "^7.10.4",
+    "@babel/preset-env": "^7.10.4",
+    "@babel/preset-react": "^7.10.4",
+    "@babel/runtime": "^7.6.2",
+    "@react-native-community/eslint-config": "^0.0.5",
+    "babel-core": "^6.26.3",
+    "babel-jest": "^26.1.0",
+    "eslint": "^6.5.1",
+    "jest": "^26.1.0",
+    "isomorphic-fetch": "^2.2.1",
+    "metro-react-native-babel-preset": "^0.58.0",
+    "react-native-testing-library": "^2.1.1",
+    "react-test-renderer": "^16.13.1"
+  },
+  "jest": {
+    "preset": "react-native"
+  },
+  "dependencies": {
+    "@react-native-community/picker": "^1.6.6"
   }
 }
