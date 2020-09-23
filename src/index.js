@@ -33,9 +33,11 @@ export default class SelectPicker extends PureComponent {
 	}
 
 	showSelectModal = () => {
-		this.stateSet({
-			visible: true
-		});
+		if(!this.state.disabled){
+			this.stateSet({
+				visible: true
+			});
+		}
 	}
 
 	componentDidMount() {
