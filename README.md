@@ -1,8 +1,8 @@
-# React Native Form Select Picker _(v 0.0.9)_
+# React Native Form Select Picker _(v 0.0.10)_
 This is a customized select picker that renders the same way on all platforms.
 
 ## What's new?
-Version 0.0.9 replaces `Picker` in `react-native` to `@react-native-community/picker` for `react-native` 0.60 and above. Also, test suites has been added for development purposes.
+Version 0.0.10 fixes the disabled input bug.
 
 ## Installation
 if you already have this package in your project update to the latest version by running:
@@ -92,6 +92,7 @@ The following properties go into the \<SelectPicker.Item> component (equivalent 
 | **value** | any | null | Yes | The value of the option is passed in here and it is the value passed to the `onValueChange` function. |
 
 ## Changelog
+- 0.0.10: Fixes input disabled issue _(when disabled prop is passed, it renders the input disabled)_
 - 0.0.9: Removed `Picker` from `react-native` library and imported from `@react-native-community/picker` for projects using `react-native` 0.60 and above.
 - 0.0.81: Removed the default **-- select --** placeholder on iOS.
 - 0.0.8: Updated the deprecated functions in `react` to new ones and optimized the code to avoid memory leaks when component is unmounted. Removed `showIOS` prop _(Native picker is default for iOS now - no need to include this)_
@@ -102,8 +103,7 @@ The following properties go into the \<SelectPicker.Item> component (equivalent 
 
 
 ## Contributing
-This project was started by [Olayinka Okewale](https://github.com/olayinkaokewale)
-on 20th April, 2019. If you'd love to contribute, fork, make your edits, run `npm test` and send in a pull request.
+If you'd love to contribute to this project, fork, make your edits, run `npm test` and send in a pull request.
 
 ## Support Us
 If you like this project please give a star and follow me on my social media networks.
