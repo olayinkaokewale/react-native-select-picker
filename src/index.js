@@ -198,7 +198,7 @@ export default class SelectPicker extends PureComponent {
 						{/* Header */}
 						<View style={styles.pickerHeader}>
 							<View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
-								<Text style={[styles.defaultTitleTextStyle, this.props.titleTextStyle]}>{this.props.titleText || 'Title'}</Text>
+								<Text style={[styles.defaultTitleTextStyle, this.props.titleTextStyle]}>{this.props.titleText || ''}</Text>
 							</View>
 							<TouchableOpacity onPress={() => this.onValueChange()} activeOpacity={0.9} style={[{ padding: 5 }, styles.px10]}>
 								<Text style={[styles.defaultButtonTextStyle, this.props.doneButtonTextStyle]}>{this.props.doneButtonText || 'Done'}</Text>
