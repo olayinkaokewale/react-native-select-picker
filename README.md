@@ -82,6 +82,8 @@ The following properties can go in the \<SelectPicker> component (equivalent of 
 | containerStyle | StyleSheet | `{backgroundColor:'#FFFFFF'}` | No | This is the style for the modal dropdown select page. |
 | doneButtonText | string | `"done"` | No | You can change the text being displayed for the confirmation button at the top right corner |
 | doneButtonTextStyle | StyleSheet | `{textAlign:'center',color: '#1976D2',fontWeight: '600',fontSize:16}` | No | You can change the style of the confirm text to suit your design structure or template |
+| titleText | string | "" | No | You can add title for the modal dropdown select page. |
+| titleTextStyle | StyleSheet | `{textAlign:'center',color:'black',fontWeight:'bold',fontSize:18}` | No | This is the style of the title for the modal dropdown select page. |
 
 ### \<SelectPicker.Item> component props
 The following properties go into the \<SelectPicker.Item> component (equivalent of \<option> in HTML):
