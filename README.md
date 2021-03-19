@@ -88,6 +88,8 @@ The following properties can go in the \<SelectPicker> component (equivalent of 
 | containerStyle | StyleSheet | `{backgroundColor:'#FFFFFF'}` | No | This is the style for the modal dropdown select page. |
 | doneButtonText | string | `"done"` | No | You can change the text being displayed for the confirmation button at the top right corner |
 | doneButtonTextStyle | StyleSheet | `{textAlign:'center',color: '#1976D2',fontWeight: '600',fontSize:16}` | No | You can change the style of the confirm text to suit your design structure or template |
+| titleText | string | "" | No | You can add title for the modal dropdown select page. |
+| titleTextStyle | StyleSheet | `{textAlign:'center',color:'black',fontWeight:'bold',fontSize:18}` | No | This is the style of the title for the modal dropdown select page. |
 
 ### \<SelectPicker.Item> component props
 The following properties go into the \<SelectPicker.Item> component (equivalent of \<option> in HTML):
@@ -98,6 +100,7 @@ The following properties go into the \<SelectPicker.Item> component (equivalent 
 | **value** | any | null | Yes | The value of the option is passed in here and it is the value passed to the `onValueChange` function. |
 
 ## Changelog
+- 0.0.12: Added a title prop for the modal dropdown select page
 - 0.0.11: Updated some third-party library imports
 - 0.0.10: Fixes input disabled issue _(when disabled prop is passed, it renders the input disabled)_
 - 0.0.9: Removed `Picker` from `react-native` library and imported from `@react-native-community/picker` for projects using `react-native` 0.60 and above.
@@ -118,4 +121,3 @@ If you like this project please give a star and follow me on my social media net
 [![alt text](https://img.icons8.com/small/32/000000/linkedin.png)](https://www.linkedin.com/in/olayinkaokewale)
 [![alt text](https://img.icons8.com/small/32/000000/instagram-new.png)](https://www.instagram.com/olayinkaokewale)
 [![alt text](https://img.icons8.com/small/32/000000/twitter.png)](https://www.twitter.com/olayinkaokewale)
-
