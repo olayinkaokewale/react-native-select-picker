@@ -1,4 +1,4 @@
-# React Native Form Select Picker _(v 0.0.10)_
+# React Native Form Select Picker
 This is a customized select picker that renders the same way on all platforms.
 
 ## What's new?
@@ -7,6 +7,12 @@ Version 0.0.10 fixes the disabled input bug.
 ## Installation
 if you already have this package in your project update to the latest version by running:
 > `npm install --save react-native-form-select-picker@latest`
+
+Install peer dependency:
+> `npm install @react-native-picker/picker --save`
+
+Do a pod install (only iOS)
+> `npx pod-install`
 
 | react-native version | version to install |
 | --- | --- |
@@ -29,7 +35,7 @@ Here is the rendered sample of this package on Android and iOS
 
 ## Installation
 To install this package you will have to run the command below using npm
-> `npm install --save react-native-form-select-picker`
+> `npm install --save react-native-form-select-picker@latest`
 
 ## Usage
 This module has been made to conform to the basic react native Picker in order to easily change import 
@@ -94,6 +100,8 @@ The following properties go into the \<SelectPicker.Item> component (equivalent 
 | **value** | any | null | Yes | The value of the option is passed in here and it is the value passed to the `onValueChange` function. |
 
 ## Changelog
+- 0.0.12: Added a title prop for the modal dropdown select page
+- 0.0.11: Updated some third-party library imports
 - 0.0.10: Fixes input disabled issue _(when disabled prop is passed, it renders the input disabled)_
 - 0.0.9: Removed `Picker` from `react-native` library and imported from `@react-native-community/picker` for projects using `react-native` 0.60 and above.
 - 0.0.81: Removed the default **-- select --** placeholder on iOS.
@@ -105,7 +113,7 @@ The following properties go into the \<SelectPicker.Item> component (equivalent 
 
 
 ## Contributing
-If you'd love to contribute to this project, fork, make your edits, run `npm test` and send in a pull request.
+If you'd love to contribute to this project, fork, make your edits, update the readme to reflect your changes, update the version number in the `package.json` file, run `npm test` and send in a pull request.
 
 ## Support Us
 If you like this project please give a star and follow me on my social media networks.
@@ -113,4 +121,3 @@ If you like this project please give a star and follow me on my social media net
 [![alt text](https://img.icons8.com/small/32/000000/linkedin.png)](https://www.linkedin.com/in/olayinkaokewale)
 [![alt text](https://img.icons8.com/small/32/000000/instagram-new.png)](https://www.instagram.com/olayinkaokewale)
 [![alt text](https://img.icons8.com/small/32/000000/twitter.png)](https://www.twitter.com/olayinkaokewale)
-
