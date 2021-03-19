@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { AppRegistry, View, Modal, TouchableOpacity, StyleSheet, ScrollView, Text, Platform } from 'react-native';
-import { Picker } from '@react-native-community/picker';
+import { Picker } from '@react-native-picker/picker';
 import PickerItem from './components/pickeritem';
 import PickerItemNative from './components/picketitem-native';
 import Logger from './utils/logger';
