@@ -3,6 +3,10 @@ import {create} from 'react-test-renderer';
 import Logger from '../utils/logger';
 import SelectPicker from '..';
 
+jest.mock('@react-native-picker/picker', () => ({
+    Picker: () => <></>
+}));
+
 const options = ["Apple", "Banana", "Orange"];
 const TestComponent = ({}) => {
     const [selected, setSelected] = useState();
