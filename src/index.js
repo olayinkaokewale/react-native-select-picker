@@ -10,7 +10,7 @@ export default class SelectPicker extends PureComponent {
 	// Build selection index
 	selectionView = null; //Reference of the scroll view.
 	scrollY = 0;
-	
+
 	// Constructor
 	constructor(props) {
 		super(props);
@@ -29,11 +29,11 @@ export default class SelectPicker extends PureComponent {
 			// ScrollView Position.
 			scrollY: 0
 		};
-		
+
 	}
 
 	showSelectModal = () => {
-		if(!this.state.disabled){
+		if (!this.state.disabled) {
 			this.stateSet({
 				visible: true
 			});
@@ -107,7 +107,7 @@ export default class SelectPicker extends PureComponent {
 						};
 					}
 				});
-				
+
 				return [
 					index > 0 && (<View key={index} style={styles.separator} />),
 					newChild
@@ -126,7 +126,7 @@ export default class SelectPicker extends PureComponent {
 				]
 			});
 		}
-		
+
 		this.stateSet({
 			children: childrenRender
 		});
@@ -146,9 +146,9 @@ export default class SelectPicker extends PureComponent {
 					})
 				}
 			})
-			
-		} 
-		
+
+		}
+
 	}
 
 	onValueChange = () => {
@@ -178,7 +178,7 @@ export default class SelectPicker extends PureComponent {
 		if (this.state.selected != null && this.state.selected != undefined && String(this.state.selected).length > 0) {
 			return (<Text numberOfLines={1} style={[styles.selectedTitleStyle, this.props.onSelectedStyle]}>{this.state.selectedLabel}</Text>);
 		}
-		
+
 		return (<Text numberOfLines={1} style={[styles.placeholderTitleStyle, this.props.placeholderStyle]}>{this.props.placeholder}</Text>);
 	}
 
@@ -187,29 +187,29 @@ export default class SelectPicker extends PureComponent {
 			<TouchableOpacity activeOpacity={0.9} style={[styles.inputStyle, this.props.style]} onPress={() => { this.showSelectModal() }}>
 				{/* Get title of the select element */}
 				{this.getSelectTitle()}
-				
+
 				{/* Modal to display on touch */}
 				<Modal visible={this.state.visible} onRequestClose={() => this.onValueChange()} transparent>
-					<View style={[styles.upperView, {height:'60%'}]}>
-						<TouchableOpacity activeOpacity={1} onPress={() => this.onValueChange()} style={{flex:1}} />
+					<View style={[styles.upperView, { height: '60%' }]}>
+						<TouchableOpacity activeOpacity={1} onPress={() => this.onValueChange()} style={{ flex: 1 }} />
 					</View>
 					<View style={[styles.lowerView, this.props.containerStyle]}>
-						
+
 						{/* Header */}
 						<View style={styles.pickerHeader}>
-							<View style={{flex:1}}>
-							
+							<View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
+								<Text style={[styles.defaultTitleTextStyle, this.props.titleTextStyle]}>{this.props.titleText || ''}</Text>
 							</View>
-							<TouchableOpacity onPress={() => this.onValueChange()} activeOpacity={0.9} style={[{padding:5}, styles.px10]}>
+							<TouchableOpacity onPress={() => this.onValueChange()} activeOpacity={0.9} style={[{ padding: 5 }, styles.px10]}>
 								<Text style={[styles.defaultButtonTextStyle, this.props.doneButtonTextStyle]}>{this.props.doneButtonText || 'Done'}</Text>
 							</TouchableOpacity>
 						</View>
-						
+
 						{/* Body */}
 						{(Platform.OS != "ios" && Platform.OS != "macos") && (<ScrollView
-							onLayout={event => {this.setScrollViewPosition()}}
-							ref={el => {this.selectionView = el}}
-							>
+							onLayout={event => { this.setScrollViewPosition() }}
+							ref={el => { this.selectionView = el }}
+						>
 							<View style={styles.pickerBody}>
 								{this.state.children}
 							</View>
@@ -223,7 +223,7 @@ export default class SelectPicker extends PureComponent {
 									});
 								}}
 								selectedValue={this.state.selected}
-								>
+							>
 								{this.state.children}
 							</Picker>
 						)}
@@ -235,8 +235,8 @@ export default class SelectPicker extends PureComponent {
 
 	setScrollViewPosition = () => {
 		setTimeout(() => {
-			if (this.selectionView != null) this.selectionView.scrollTo({x:0, y:this.scrollY, duration:0, animated:false});
-		}, 200); 
+			if (this.selectionView != null) this.selectionView.scrollTo({ x: 0, y: this.scrollY, duration: 0, animated: false });
+		}, 200);
 		// Reason for setting timeout is because on iOS, the children elements might have not fully rendered before this method is fired. We have to get a way to slow it down and get the latest scrollY;
 	}
 
@@ -245,36 +245,42 @@ export default class SelectPicker extends PureComponent {
 
 const styles = StyleSheet.create({
 	transparent: {
-		backgroundColor:'#00000000',
+		backgroundColor: '#00000000',
 	},
 	upperView: {
-		backgroundColor:'#00000044'
+		backgroundColor: '#00000044'
 	},
 	lowerView: {
-		backgroundColor:'#FFFFFF',
+		backgroundColor: '#FFFFFF',
 		height: '40%',
 	},
 	pickerHeader: {
-		padding:10,
-		borderBottomColor:'#EFEFEF',
-		borderBottomWidth:1,
+		padding: 10,
+		borderBottomColor: '#EFEFEF',
+		borderBottomWidth: 1,
 		flexDirection: 'row',
 	},
 	pickerBody: {
-		flex:1,
-		padding:10,
+		flex: 1,
+		padding: 10,
 	},
 	defaultButtonTextStyle: {
-		textAlign:'center',
+		textAlign: 'center',
 		color: '#757575',
 		fontWeight: '400',
-		fontSize:16
+		fontSize: 16
+	},
+	defaultTitleTextStyle: {
+		textAlign:'center',
+		color:'black',
+		fontWeight:'bold',
+		fontSize:18
 	},
 	inputStyle: {
-		padding:10,
+		padding: 10,
 	},
 	centerContent: {
-		justifyContent:'center',
+		justifyContent: 'center',
 		alignContent: 'center',
 		alignItems: 'center',
 	},
@@ -284,8 +290,8 @@ const styles = StyleSheet.create({
 		resizeMode: 'center'
 	},
 	separator: {
-		height:1,
-		backgroundColor:'#FAFAFA'
+		height: 1,
+		backgroundColor: '#FAFAFA'
 	},
 	itemTextStyle: {
 		fontSize: 16,
@@ -293,11 +299,11 @@ const styles = StyleSheet.create({
 	},
 	placeholderTitleStyle: {
 		fontSize: 15,
-		color:'#757575'
+		color: '#757575'
 	},
 	selectedTitleStyle: {
 		fontSize: 15,
-		color:'#252525'
+		color: '#252525'
 	},
 	px10: {
 		paddingHorizontal: 10,
