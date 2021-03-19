@@ -42,12 +42,13 @@
     "isomorphic-fetch": "^2.2.1",
     "metro-react-native-babel-preset": "^0.58.0",
     "react-native-testing-library": "^2.1.1",
-    "react-test-renderer": "^16.13.1"
+    "react-test-renderer": "^16.13.1",
+    "@react-native-picker/picker": "^1.9.12"
   },
   "jest": {
     "preset": "react-native"
   },
-  "dependencies": {
-    "@react-native-community/picker": "^1.6.6"
+  "peerDependencies": {
+    "@react-native-picker/picker": "^1.9.12"
   }
 }

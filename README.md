@@ -8,6 +8,12 @@ Version 0.0.10 fixes the disabled input bug.
 if you already have this package in your project update to the latest version by running:
 > `npm install --save react-native-form-select-picker@latest`
 
+Install peer dependency:
+> `npm install @react-native-picker/picker --save`
+
+Do a pod install (only iOS)
+> `npx pod-install`
+
 | react-native version | version to install |
 | --- | --- |
 | 0.60 and above | 0.0.9 and above |
